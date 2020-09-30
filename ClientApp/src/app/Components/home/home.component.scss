@@ -1,0 +1,14 @@
+.input-task{
+    width: 100%;
+}
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+.date-picker{
+    position: relative;
+    .date-picker-button{
+        position: absolute;
+        right: -30px;
+        top: -30px;
+    }
+}

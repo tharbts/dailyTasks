@@ -1,0 +1,59 @@
+<div id="content" class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <mat-card-header class="date-picker">
+                    <button mat-mini-fab class="date-picker-button" (click)="picker.open()" color="primary">
+                        <mat-icon>date_range</mat-icon>
+                    </button>
+                    <mat-form-field style="display: none;" appearance="fill">
+                        <mat-label>Choose a date</mat-label>
+                        <input matInput (dateChange)="changeDate($event.value)" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="add-task">
+                        <mat-form-field class="input-task">
+                            <mat-label>Type your task...</mat-label>
+                            <input (keyup.enter)="add()" matInput type="text" [(ngModel)]="value">
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div id="content" class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <mat-card class="p-0">
+                <mat-card-content>
+                    <table class="table table-striped table-hover table-borderless">
+                        <tbody>
+                            <tr *ngFor="let task of dailyTasks.tasks">
+                                <td style="width:90%;">{{task.description}}</td>
+                                <td style="width:5%;" class="text-center">
+                                    <button (click)="check(task.id)" mat-icon-button color="primary">
+                                        <mat-icon *ngIf="task.done">done_all</mat-icon>
+                                        <mat-icon *ngIf="!task.done">done</mat-icon>
+                                    </button>
+                                </td>
+                                <td style="width:5%;" class="text-center">
+                                    <button (click)="delete(task.id)" mat-icon-button color="accent">
+                                        <mat-icon (click)="delete(task.id)">close</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="dailyTasks.tasks.length == 0">
+                                <td colspan="100%" class="text-center">No Tasks Yet</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
