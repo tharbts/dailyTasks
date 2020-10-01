@@ -9,7 +9,7 @@ using dailyTasks.Persistence;
 namespace dailyTasks.Migrations
 {
     [DbContext(typeof(DailyTasksDbContext))]
-    [Migration("20200925154622_InitialCreate")]
+    [Migration("20201001221252_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,7 @@ namespace dailyTasks.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Done")

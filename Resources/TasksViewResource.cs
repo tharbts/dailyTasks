@@ -1,15 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-
-namespace dailyTasks.Models
+namespace dailyTasks.Resources
 {
-    public class Tasks
+    public class TasksResource
     {
         public int Id { get; set; }
-
-        [Required]
         public string Description { get; set; }
-
-        [Required]
         public bool Done { get; set; }
 
     }

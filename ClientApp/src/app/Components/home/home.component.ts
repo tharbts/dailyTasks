@@ -13,7 +13,8 @@ import { Task } from 'src/app/Models/Task';
 export class HomeComponent implements OnInit {
 
     value;
-    dailyTasks = new DailyTasks();
+    currentDate;
+    dailyTasks:DailyTasks = new DailyTasks();
     displayedColumns = ['description', 'status', 'remove'];
 
     constructor(private dailyTaksService: DailyTasksService) {
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
     }
 
     changeDate(date) {
+
         var filter: Filter = {
             FinalDate: date,
             InitialDate: date
@@ -67,6 +69,7 @@ export class HomeComponent implements OnInit {
             });
         } else {
             this.dailyTaksService.update(this.dailyTasks).subscribe(dt => {
+                console.log(dt);
                 this.dailyTasks = dt;
             });
         }
@@ -82,12 +85,17 @@ export class HomeComponent implements OnInit {
         }
 
         this.dailyTaksService.Get(filter).subscribe(dt => {
-            if (dt.length)
+            if (dt.length){
                 this.dailyTasks = dt[0];
-            else
+                this.dailyTasks.date = new Date(this.dailyTasks.date);
+            }else{
                 this.dailyTasks = new DailyTasks();
                 this.dailyTasks.date = filter.InitialDate;
+            }
+
+            this.currentDate = this.dailyTasks.date.toLocaleDateString('pt-BR');
         });
+
     }
 
 }

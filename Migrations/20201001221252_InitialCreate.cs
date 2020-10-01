@@ -26,7 +26,7 @@ namespace dailyTasks.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
                     Done = table.Column<bool>(nullable: false),
                     DailyTasksId = table.Column<int>(nullable: true)
                 },

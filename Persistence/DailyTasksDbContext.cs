@@ -7,6 +7,8 @@ namespace dailyTasks.Persistence
     {
         public DbSet<DailyTasks> DailyTasks { get; set; }
 
+        public DbSet<Tasks> Tasks { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite("Data Source=database.db");
     }

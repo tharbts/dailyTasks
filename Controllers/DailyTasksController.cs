@@ -1,8 +1,10 @@
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using dailyTasks.Models;
 using dailyTasks.Persistence;
+using dailyTasks.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,60 +26,77 @@ namespace dailyTasks.Controllers
         {
             filter = filter ?? new Filter();
 
-            var dt = await context.DailyTasks.Include(x => x.Tasks).ToListAsync();
+            var dtDbList = await context.DailyTasks.Include(x => x.Tasks).ToListAsync();
 
             if (filter.InitialDate != null)
-                dt = dt.Where(x => x.Date.Date >= filter.InitialDate).ToList();
+                dtDbList = dtDbList.Where(x => x.Date.Date >= filter.InitialDate).ToList();
 
             if (filter.FinalDate != null)
-                dt = dt.Where(x => x.Date.Date <= filter.FinalDate).ToList();
+                dtDbList = dtDbList.Where(x => x.Date.Date <= filter.FinalDate).ToList();
 
-            return Ok(dt);
+            var dtResourceList = new Collection<DailyTasksResource>();
+
+            foreach (var dtDb in dtDbList)
+                dtResourceList.Add(mapper.Map<DailyTasks, DailyTasksResource>(dtDb));
+
+            return Ok(dtResourceList);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] DailyTasks dt)
+        public async Task<IActionResult> Post([FromBody] DailyTasksResource dtResource)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var dtDb = mapper.Map<DailyTasks, DailyTasks>(dt);
+            var dtDb = mapper.Map<DailyTasksResource, DailyTasks>(dtResource);
 
             await context.DailyTasks.AddAsync(dtDb);
-
-            mapper.Map<DailyTasks, DailyTasks>(dtDb, dt);
-
             await context.SaveChangesAsync();
 
-            return Ok(dt);
+            mapper.Map<DailyTasks, DailyTasksResource>(dtDb, dtResource);
+
+            return Ok(dtResource);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] DailyTasks dt)
+        public async Task<IActionResult> Put([FromBody] DailyTasksResource dtResource)
         {
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var dtDb = await context.DailyTasks.Include(x=> x.Tasks).SingleOrDefaultAsync(x => x.Id == dt.Id);
+            var dtDb = await context.DailyTasks.Include(x=> x.Tasks).SingleOrDefaultAsync(x => x.Id == dtResource.Id);
 
             if (dtDb == null)
                 return BadRequest("Task doesn't exists!");
 
-            if (dt.Tasks.Count() == 0)
+            if (dtResource.Tasks.Count() == 0)
             {
+                context.Tasks.RemoveRange(dtDb.Tasks);
                 context.DailyTasks.Remove(dtDb);
                 await context.SaveChangesAsync();
-                dt.Id = 0;
-                return Ok(dt);
+                dtResource.Id = 0;
+                return Ok(dtResource);
             }
 
-            mapper.Map<DailyTasks, DailyTasks>(dt, dtDb);
+            RemoveTasks(dtResource, dtDb);
+
+            mapper.Map<DailyTasksResource, DailyTasks>(dtResource, dtDb);
 
             await context.SaveChangesAsync();
 
-            mapper.Map<DailyTasks, DailyTasks>(dtDb, dt);
+            mapper.Map<DailyTasks, DailyTasksResource>(dtDb, dtResource);
 
-            return Ok(dt);
+            return Ok(dtResource);
+
+
+        }
+
+        private void RemoveTasks(DailyTasksResource dtResource, DailyTasks dtDb)
+        {
+            var removed = dtDb.Tasks.Where(x => !dtResource.Tasks.Any(y => y.Id == x.Id));
+            foreach (var task in removed.ToList())
+                context.Tasks.Remove(task);
         }
 
         [HttpDelete("{id}")]
@@ -88,6 +107,7 @@ namespace dailyTasks.Controllers
             if (dtDb == null)
                 return NotFound("Task doesn't exists!");
 
+            context.Tasks.RemoveRange(dtDb.Tasks);
             context.DailyTasks.Remove(dtDb);
 
             await context.SaveChangesAsync();

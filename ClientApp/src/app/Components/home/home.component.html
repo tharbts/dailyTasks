@@ -50,6 +50,9 @@
                             <tr *ngIf="dailyTasks.tasks.length == 0">
                                 <td colspan="100%" class="text-center">No Tasks Yet</td>
                             </tr>
+                            <tr>
+                                <td colspan="100%" class="text-right font-weight-bold">{{currentDate}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </mat-card-content>
