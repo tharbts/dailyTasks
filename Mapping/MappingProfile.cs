@@ -40,7 +40,8 @@ namespace dailyTasks.Mapping
                 });
 
             // Database to Resource
-            CreateMap<DailyTasks, DailyTasksResource>();
+            CreateMap<DailyTasks, DailyTasksResource>()
+            .ForMember(x => x.Date, opt => opt.MapFrom(d => d.Date.ToString("dd/M/yyyy")));
         }
 
         private void MapTasks()

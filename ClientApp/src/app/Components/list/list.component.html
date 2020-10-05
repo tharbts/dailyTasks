@@ -1,0 +1,26 @@
+<div id="content" class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <mat-card class="p-0 mb-3" *ngFor="let dt of dailyTasks">
+                <mat-card-content>
+                    <table class="table table-striped table-hover table-borderless">
+                        <tbody>
+                            <tr *ngFor="let task of dt.tasks">
+                                <td style="width:90%;">{{task.description}}</td>
+                                <td style="width:5%;" class="text-center">
+                                    <button mat-icon-button>
+                                        <mat-icon *ngIf="task.done">done_all</mat-icon>
+                                        <mat-icon *ngIf="!task.done">done</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="100%" class="text-right font-weight-bold">{{dt.date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

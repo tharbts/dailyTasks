@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
     value;
     currentDate;
     dailyTasks:DailyTasks = new DailyTasks();
-    displayedColumns = ['description', 'status', 'remove'];
 
     constructor(private dailyTaksService: DailyTasksService) {
         this.loadDailyTasks();

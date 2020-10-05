@@ -9,10 +9,16 @@ import { MaterialModule } from './Modules/material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MenuComponent } from './Components/menu/menu.component';
+import { AppComponent } from './Components/app.component';
+import { ListComponent } from './Components/list/list.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    AppComponent,
+    HomeComponent,
+    MenuComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +30,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [HomeComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
