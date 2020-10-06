@@ -1,3 +1,10 @@
 .table > tbody > tr > td {
     vertical-align: middle;
 }
+#filter{
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%);
+}

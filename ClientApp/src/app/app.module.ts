@@ -13,6 +13,8 @@ import { MenuComponent } from './Components/menu/menu.component';
 import { AppComponent } from './Components/app.component';
 import { ListComponent } from './Components/list/list.component';
 
+import { LOCALE_ID } from '@angular/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { ListComponent } from './Components/list/list.component';
     NgbModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

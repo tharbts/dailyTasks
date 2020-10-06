@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DailyTasks } from 'src/app/Models/DailyTasks';
 import { Filter } from 'src/app/Models/Filter';
 import { DailyTasksService } from 'src/app/Services/daily-tasks.service';
@@ -11,29 +11,27 @@ import { DailyTasksService } from 'src/app/Services/daily-tasks.service';
 export class ListComponent implements OnInit {
 
     dailyTasks: DailyTasks[] = [];
+    filter: Filter;
 
     constructor(private dailyTaksService: DailyTasksService) { }
 
     ngOnInit(): void {
+        this.loadFilter();
         this.loadDailyTasks();
     }
 
-    private loadDailyTasks(filter?: Filter) {
-
-        if (filter == null) {
-            var date = new Date();
-            var filter: Filter = {
-                InitialDate: new Date(date.getFullYear(), date.getMonth(), 1),
-                FinalDate: date
-            }
+    private loadFilter() {
+        var date = new Date();
+        this.filter = {
+            InitialDate: new Date(date.getFullYear(), date.getMonth(), 1),
+            FinalDate: date
         }
+    }
 
-        this.dailyTaksService.Get(filter).subscribe(dt => {
-            if (dt.length) {
-                this.dailyTasks = dt;
-            }
+    public loadDailyTasks(filter?: Filter) {
+        this.dailyTaksService.Get(this.filter).subscribe(dt => {
+            this.dailyTasks = dt;
         });
-
     }
 
 }

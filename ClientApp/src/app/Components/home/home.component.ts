@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
     }
 
     changeDate(date) {
-
         var filter: Filter = {
             FinalDate: date,
             InitialDate: date

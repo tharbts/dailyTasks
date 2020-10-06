@@ -1,4 +1,20 @@
-<div id="content" class="container mt-5">
+<div id="filter">
+    <mat-card class="p-3">
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input [(ngModel)]="filter.InitialDate" matStartDate placeholder="Start date"  (dateChange)="loadDailyTasks()">
+                    <input [(ngModel)]="filter.FinalDate" matEndDate placeholder="End date"  (dateChange)="loadDailyTasks()">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker touchUi  #picker></mat-date-range-picker>
+                </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div id="content" class="container-fluid mt-5">
     <div class="row">
         <div class="col-12">
             <mat-card class="p-0 mb-3" *ngFor="let dt of dailyTasks">
@@ -8,10 +24,8 @@
                             <tr *ngFor="let task of dt.tasks">
                                 <td style="width:90%;">{{task.description}}</td>
                                 <td style="width:5%;" class="text-center">
-                                    <button mat-icon-button>
-                                        <mat-icon *ngIf="task.done">done_all</mat-icon>
-                                        <mat-icon *ngIf="!task.done">done</mat-icon>
-                                    </button>
+                                    <mat-icon *ngIf="task.done">done_all</mat-icon>
+                                    <mat-icon *ngIf="!task.done">done</mat-icon>
                                 </td>
                             </tr>
                             <tr>
@@ -19,6 +33,11 @@
                             </tr>
                         </tbody>
                     </table>
+                </mat-card-content>
+            </mat-card>
+            <mat-card class="p-0 mb-3" *ngIf="dailyTasks.length == 0">
+                <mat-card-content class="text-center p-3">
+                    No Tasks Found
                 </mat-card-content>
             </mat-card>
         </div>
