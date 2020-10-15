@@ -67,7 +67,6 @@ export class HomeComponent implements OnInit {
             });
         } else {
             this.dailyTaksService.update(this.dailyTasks).subscribe(dt => {
-                console.log(dt);
                 this.dailyTasks = dt;
             });
         }

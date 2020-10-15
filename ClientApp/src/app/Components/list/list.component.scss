@@ -1,10 +1,47 @@
+@function repeat($character, $n) {
+    $c: "";
+    @for $i from 1 through $n {
+        $c: $c + $character;
+    }
+    @return $c;
+}
+
 .table > tbody > tr > td {
     vertical-align: middle;
 }
-#filter{
+#filter {
     display: inline-block;
     position: relative;
     left: 50%;
     top: 0;
     transform: translate(-50%);
+    @media print {
+        display: none;
+    }
+}
+
+#header {
+    display: none;
+    @media print {
+        display: block;
+    }
+    mat-card {
+        padding: 0;
+        mat-card-content {
+            padding: 20px;
+            border: 1px solid;
+        }
+    }
+}
+
+.fill-dots:before {
+    @media print {
+        content: repeat(".", 220);
+    }
+}
+
+app-menu {
+    @media print {
+        display: none;
+    }
 }

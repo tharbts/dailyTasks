@@ -26,7 +26,7 @@ namespace dailyTasks.Controllers
         {
             filter = filter ?? new Filter();
 
-            var dtDbList = await context.DailyTasks.Include(x => x.Tasks).ToListAsync();
+            var dtDbList = await context.DailyTasks.Include(x => x.Tasks).OrderBy(x=> x.Date).ToListAsync();
 
             if (filter.InitialDate != null)
                 dtDbList = dtDbList.Where(x => x.Date.Date >= filter.InitialDate).ToList();

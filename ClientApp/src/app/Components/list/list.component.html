@@ -14,7 +14,29 @@
     </mat-card>
 </div>
 
-<div id="content" class="container-fluid mt-5">
+<div id="header" class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <h1 class="text-center">Atividades Realizadas</h1>
+                <mat-card-content>
+                    <table>
+                        <tr>
+                            <td><strong>Nome:</strong></td>
+                            <td>Thaynner Bastos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Periodo:</strong></td>
+                            <td>{{filter.InitialDate | date: 'shortDate'}} - {{filter.FinalDate | date: 'shortDate'}}</td>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+<div id="content" class="container mt-5">
     <div class="row">
         <div class="col-12">
             <mat-card class="p-0 mb-3" *ngFor="let dt of dailyTasks">
@@ -29,7 +51,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="100%" class="text-right font-weight-bold">{{dt.date}}</td>
+                                <td colspan="100%" class="text-right font-weight-bold"><span class="fill-dots">{{dt.date}}</span></td>
                             </tr>
                         </tbody>
                     </table>

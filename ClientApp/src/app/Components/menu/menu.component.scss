@@ -6,4 +6,7 @@ mat-toolbar{
         flex-grow: 1;
         border-radius: 0;
     }
+    @media print {
+        display: none;
+    }
 }
