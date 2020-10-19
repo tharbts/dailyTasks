@@ -13,11 +13,6 @@ import { MenuComponent } from './Components/menu/menu.component';
 import { AppComponent } from './Components/app.component';
 import { ListComponent } from './Components/list/list.component';
 
-import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-registerLocaleData(localePt);
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,9 +28,6 @@ registerLocaleData(localePt);
     FormsModule,
     NgbModule,
     HttpClientModule
-  ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
   ],
   bootstrap: [AppComponent]
 })

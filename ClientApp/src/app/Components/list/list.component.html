@@ -22,12 +22,12 @@
                 <mat-card-content>
                     <table>
                         <tr>
-                            <td><strong>Nome:</strong></td>
+                            <td><strong>Por:</strong></td>
                             <td>Thaynner Bastos</td>
                         </tr>
                         <tr>
                             <td><strong>Periodo:</strong></td>
-                            <td>{{filter.InitialDate | date: 'shortDate'}} - {{filter.FinalDate | date: 'shortDate'}}</td>
+                            <td>{{filter.InitialDate | date: 'dd/M/yyyy'}} - {{filter.FinalDate | date: 'dd/M/yyyy'}}</td>
                         </tr>
                     </table>
                 </mat-card-content>
@@ -41,20 +41,22 @@
         <div class="col-12">
             <mat-card class="p-0 mb-3" *ngFor="let dt of dailyTasks">
                 <mat-card-content>
-                    <table class="table table-striped table-hover table-borderless">
-                        <tbody>
-                            <tr *ngFor="let task of dt.tasks">
-                                <td style="width:90%;">{{task.description}}</td>
-                                <td style="width:5%;" class="text-center">
-                                    <mat-icon *ngIf="task.done">done_all</mat-icon>
-                                    <mat-icon *ngIf="!task.done">done</mat-icon>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="100%" class="text-right font-weight-bold"><span class="fill-dots">{{dt.date}}</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="page-break-inside: avoid;">
+                        <table class="table table-striped table-hover table-borderless">
+                            <tbody>
+                                <tr *ngFor="let task of dt.tasks">
+                                    <td style="width:90%;" class="description">{{task.description}}</td>
+                                    <td style="width:5%;" class="text-center">
+                                        <mat-icon *ngIf="task.done">done_all</mat-icon>
+                                        <mat-icon *ngIf="!task.done">done</mat-icon>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="100%" class="text-right font-weight-bold">{{dt.date | date: 'dd/M/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </mat-card-content>
             </mat-card>
             <mat-card class="p-0 mb-3" *ngIf="dailyTasks.length == 0">

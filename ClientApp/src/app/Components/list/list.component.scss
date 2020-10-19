@@ -9,6 +9,11 @@
 .table > tbody > tr > td {
     vertical-align: middle;
 }
+
+.description{
+    &:first-child:before{ content: "- ";}
+}
+
 #filter {
     display: inline-block;
     position: relative;

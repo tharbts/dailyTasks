@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    changeDate(date) {
+    changeDate(date:Date) {
         var filter: Filter = {
             FinalDate: date,
             InitialDate: date
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
         var task: Task = {
             id: 0,
             description: this.value,
-            done: false
+            done: true
         };
 
         this.dailyTasks.tasks.push(task);

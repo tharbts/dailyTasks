@@ -29,10 +29,10 @@ namespace dailyTasks.Controllers
             var dtDbList = await context.DailyTasks.Include(x => x.Tasks).OrderBy(x=> x.Date).ToListAsync();
 
             if (filter.InitialDate != null)
-                dtDbList = dtDbList.Where(x => x.Date.Date >= filter.InitialDate).ToList();
+                dtDbList = dtDbList.Where(x => x.Date.Date >= filter.InitialDate?.Date).ToList();
 
             if (filter.FinalDate != null)
-                dtDbList = dtDbList.Where(x => x.Date.Date <= filter.FinalDate).ToList();
+                dtDbList = dtDbList.Where(x => x.Date.Date <= filter.FinalDate?.Date).ToList();
 
             var dtResourceList = new Collection<DailyTasksResource>();
 
