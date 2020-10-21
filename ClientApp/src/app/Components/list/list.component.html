@@ -27,7 +27,10 @@
                         </tr>
                         <tr>
                             <td><strong>Periodo:</strong></td>
-                            <td>{{filter.InitialDate | date: 'dd/M/yyyy'}} - {{filter.FinalDate | date: 'dd/M/yyyy'}}</td>
+                            <td>{{filter.InitialDate | date: 'dd/MM/yyyy'}} - {{filter.FinalDate | date: 'dd/MM/yyyy'}}</td>
+                        </tr>
+                        <tr class="mt-1">
+                            <td class="text-right small border-top" colspan="2"><mat-icon>done_all</mat-icon> Concluída <mat-icon>done</mat-icon> Em andamento</td>
                         </tr>
                     </table>
                 </mat-card-content>
@@ -52,7 +55,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="100%" class="text-right font-weight-bold">{{dt.date | date: 'dd/M/yyyy'}}</td>
+                                    <td colspan="100%" class="text-right font-weight-bold">{{dt.date | date: 'dd/MM/yyyy'}}</td>
                                 </tr>
                             </tbody>
                         </table>

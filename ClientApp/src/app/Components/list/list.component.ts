@@ -11,7 +11,7 @@ import { DailyTasksService } from 'src/app/Services/daily-tasks.service';
 export class ListComponent implements OnInit {
 
     dailyTasks: DailyTasks[] = [];
-    filter: Filter;
+    filter: Filter = new Filter();
 
     constructor(private dailyTaksService: DailyTasksService) { }
 
@@ -21,17 +21,23 @@ export class ListComponent implements OnInit {
     }
 
     private loadFilter() {
-        var date = new Date();
-        this.filter = {
-            InitialDate: new Date(date.getFullYear(), date.getMonth(), 1),
-            FinalDate: date
-        }
+        var ssInitialDate = sessionStorage.getItem('dt-initial-date');
+        var ssFinalDate = sessionStorage.getItem('dt-final-date');
+
+        this.filter.InitialDate = ssInitialDate ? new Date(ssInitialDate) : new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+        this.filter.FinalDate = ssFinalDate ? new Date(ssFinalDate) : new Date();
     }
 
-    public loadDailyTasks(filter?: Filter) {
+    public loadDailyTasks() {
         this.dailyTaksService.Get(this.filter).subscribe(dt => {
             this.dailyTasks = dt;
         });
+        this.registerFilter();
+    }
+
+    private registerFilter(){
+        sessionStorage.setItem('dt-initial-date', this.filter.InitialDate.toLocaleDateString());
+        sessionStorage.setItem('dt-final-date', this.filter.FinalDate.toLocaleDateString());
     }
 
 }

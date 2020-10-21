@@ -1,11 +1,3 @@
-@function repeat($character, $n) {
-    $c: "";
-    @for $i from 1 through $n {
-        $c: $c + $character;
-    }
-    @return $c;
-}
-
 .table > tbody > tr > td {
     vertical-align: middle;
 }
@@ -35,13 +27,11 @@
         mat-card-content {
             padding: 20px;
             border: 1px solid;
-        }
-    }
-}
 
-.fill-dots:before {
-    @media print {
-        content: repeat(".", 220);
+            table{
+                width: 100%;
+            }
+        }
     }
 }
 

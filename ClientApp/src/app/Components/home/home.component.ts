@@ -13,7 +13,6 @@ import { Task } from 'src/app/Models/Task';
 export class HomeComponent implements OnInit {
 
     value;
-    currentDate;
     dailyTasks:DailyTasks = new DailyTasks();
 
     constructor(private dailyTaksService: DailyTasksService) {
@@ -24,12 +23,7 @@ export class HomeComponent implements OnInit {
     }
 
     changeDate(date:Date) {
-        var filter: Filter = {
-            FinalDate: date,
-            InitialDate: date
-        };
-
-        this.loadDailyTasks(filter);
+        this.loadDailyTasks(date);
     }
 
     public add() {
@@ -72,14 +66,9 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    private loadDailyTasks(filter?: Filter) {
+    private loadDailyTasks(date?: Date) {
 
-        if (filter == null) {
-            var filter: Filter = {
-                InitialDate : new Date(),
-                FinalDate : new Date()
-            }
-        }
+        var filter = this.fillFilter(date);
 
         this.dailyTaksService.Get(filter).subscribe(dt => {
             if (dt.length){
@@ -89,10 +78,24 @@ export class HomeComponent implements OnInit {
                 this.dailyTasks = new DailyTasks();
                 this.dailyTasks.date = filter.InitialDate;
             }
-
-            this.currentDate = this.dailyTasks.date.toLocaleDateString('pt-BR');
         });
 
+    }
+
+    private fillFilter(date? : Date){
+        var referenceDate = new Date();
+        var ssDate = sessionStorage.getItem('dt-ref-date');
+
+        if(date)
+            referenceDate = date;
+        else if(ssDate)
+            referenceDate = new Date(ssDate);
+
+        sessionStorage.setItem('dt-ref-date', referenceDate.toLocaleDateString());
+        return {
+            InitialDate : referenceDate,
+            FinalDate : referenceDate
+        }
     }
 
 }
