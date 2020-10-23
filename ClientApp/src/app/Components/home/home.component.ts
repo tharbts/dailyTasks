@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { DailyTasks } from 'src/app/Models/DailyTasks';
 import { Task } from 'src/app/Models/Task';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-home',
@@ -15,11 +16,16 @@ export class HomeComponent implements OnInit {
     value;
     dailyTasks:DailyTasks = new DailyTasks();
 
-    constructor(private dailyTaksService: DailyTasksService) {
+    constructor(private dailyTaksService: DailyTasksService, private titleService: Title) {
         this.loadDailyTasks();
+        this.setTitle();
     }
 
     ngOnInit(): void {
+    }
+
+    public setTitle() {
+        this.titleService.setTitle('DailyTasks - Inclusão de atividades');
     }
 
     changeDate(date:Date) {

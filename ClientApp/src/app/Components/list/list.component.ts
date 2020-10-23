@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { DailyTasks } from 'src/app/Models/DailyTasks';
 import { Filter } from 'src/app/Models/Filter';
 import { DailyTasksService } from 'src/app/Services/daily-tasks.service';
@@ -13,11 +14,16 @@ export class ListComponent implements OnInit {
     dailyTasks: DailyTasks[] = [];
     filter: Filter = new Filter();
 
-    constructor(private dailyTaksService: DailyTasksService) { }
+    constructor(private dailyTaksService: DailyTasksService, private titleService: Title) { }
 
     ngOnInit(): void {
         this.loadFilter();
         this.loadDailyTasks();
+        this.setTitle();
+    }
+
+    public setTitle() {
+        this.titleService.setTitle(`Relatório ${this.filter.InitialDate.toLocaleDateString('pt-br')} -  ${this.filter.FinalDate.toLocaleDateString('pt-br')}`);
     }
 
     private loadFilter() {
@@ -35,7 +41,7 @@ export class ListComponent implements OnInit {
         this.registerFilter();
     }
 
-    private registerFilter(){
+    private registerFilter() {
         sessionStorage.setItem('dt-initial-date', this.filter.InitialDate.toLocaleDateString());
         sessionStorage.setItem('dt-final-date', this.filter.FinalDate.toLocaleDateString());
     }
