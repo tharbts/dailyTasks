@@ -1,7 +1,5 @@
-import { Filter } from './../../Models/Filter';
 import { DailyTasksService } from './../../Services/daily-tasks.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { DailyTasks } from 'src/app/Models/DailyTasks';
 import { Task } from 'src/app/Models/Task';
 import { Title } from '@angular/platform-browser';

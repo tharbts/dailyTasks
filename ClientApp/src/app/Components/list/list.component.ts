@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DailyTasks } from 'src/app/Models/DailyTasks';
 import { Filter } from 'src/app/Models/Filter';
